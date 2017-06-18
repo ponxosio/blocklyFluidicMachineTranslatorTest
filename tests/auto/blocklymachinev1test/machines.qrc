@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/machines">
+        <file>machines/turbidostat_test.json</file>
+    </qresource>
+</RCC>
