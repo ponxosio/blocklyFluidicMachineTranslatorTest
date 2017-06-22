@@ -47,8 +47,9 @@ void BlocklyMachineV1Test::turbidostatMachineLayout()
             std::shared_ptr<PluginAbstractFactory> factory;
             BlocklyFluidicMachineTranslator translator(tempFile->fileName().toStdString(), factory);
 
-            std::shared_ptr<FluidicMachineModel> model = translator.translateFile();
+            BlocklyFluidicMachineTranslator::ModelMappingTuple fluidicModelPair = translator.translateFile();
 
+            std::shared_ptr<FluidicMachineModel> model = std::get<0>(fluidicModelPair);
             std::string generatedMachine = model->getMachineGraph()->toString();
             qDebug() << "generated machine:";
             qDebug() << generatedMachine.c_str();

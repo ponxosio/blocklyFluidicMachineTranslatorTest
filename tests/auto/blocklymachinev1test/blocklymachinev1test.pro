@@ -42,6 +42,12 @@ debug {
 
     INCLUDEPATH += X:\blockly_fluidicMachine_translator\dll_debug\include
     LIBS += -L$$quote(X:\blockly_fluidicMachine_translator\dll_debug\bin) -lblocklyFluidicMachineTranslator
+
+    INCLUDEPATH += X:\fluidicModelMapping\dll_debug\include
+    LIBS += -L$$quote(X:\fluidicModelMapping\dll_debug\bin) -lFluidicModelMapping
+
+    INCLUDEPATH += X:\bioblocksTranslation\dll_debug\include
+    LIBS += -L$$quote(X:\bioblocksTranslation\dll_debug\bin) -lbioblocksTranslation
 }
 
 !debug {
@@ -62,6 +68,13 @@ debug {
 
     INCLUDEPATH += X:\blockly_fluidicMachine_translator\dll_release\include
     LIBS += -L$$quote(X:\blockly_fluidicMachine_translator\dll_release\bin) -lblocklyFluidicMachineTranslator
+
+    INCLUDEPATH += X:\fluidicModelMapping\dll_release\include
+    LIBS += -L$$quote(X:\fluidicModelMapping\dll_release\bin) -lFluidicModelMapping
+
+    INCLUDEPATH += X:\bioblocksTranslation\dll_release\include
+    LIBS += -L$$quote(X:\bioblocksTranslation\dll_release\bin) -lbioblocksTranslation
+
 }
 
 INCLUDEPATH += X:\libraries\cereal-1.2.2\include
