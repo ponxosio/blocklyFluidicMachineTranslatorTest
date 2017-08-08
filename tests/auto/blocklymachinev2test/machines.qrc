@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>machines/machineV2simpleTest.json</file>
+        <file>machines/machineV2complexValveTest.json</file>
+    </qresource>
+</RCC>

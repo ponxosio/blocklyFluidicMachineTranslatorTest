@@ -1,0 +1,278 @@
+{
+  "block_type": "hardware_layout",
+  "connections": [
+    {
+      "block_type": "configure_node",
+      "reference": "i1",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "p1"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "i2",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "p2"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "cc",
+      "type": "CLOSE_CONTAINER",
+      "functions": {
+        "block_type": "CLOSE_CONTAINER_2",
+        "type": "CloseContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1,
+        "maxVolumeUnits": "L",
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ]
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "v"
+        }
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "v"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "w",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "v"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "p1",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "0"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "i1"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "v"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "p2",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "1"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "i2"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "v"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "v",
+      "type": "VALVE",
+      "functions": {
+        "block_type": "TestValve",
+        "type": "Valve",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "truthTable": [
+          {
+            "position": 0,
+            "connected_pins": []
+          },
+          {
+            "position": 1,
+            "connected_pins": [
+              [
+                0,
+                4
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "connected_pins": [
+              [
+                1,
+                4
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          }
+        ],
+        "name0": "i2c_address",
+        "value0": {
+          "block_type": "math_number",
+          "value": "2"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 5,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "p1"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "p2"
+      },
+      "port3": {
+        "block_type": "reference_node",
+        "reference": "w"
+      },
+      "port4": {
+        "block_type": "reference_node",
+        "reference": "cc"
+      },
+      "port5": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "cc"
+        }
+      }
+    }
+  ],
+  "decimal_precission": 1,
+  "default_rate": 500,
+  "default_rate_volume_units": "ml",
+  "default_rate_time_units": "h",
+  "integer_precission": 4
+}
