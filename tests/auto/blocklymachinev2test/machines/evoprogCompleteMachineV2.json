@@ -1,0 +1,1021 @@
+{
+  "block_type": "hardware_layout",
+  "connections": [
+    {
+      "block_type": "configure_node",
+      "reference": "mediaA",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pumpA"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "VA",
+      "type": "VALVE",
+      "functions": {
+        "block_type": "EVOPROGVALVE1",
+        "type": "Valve",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "truthTable": [
+          {
+            "position": 0,
+            "connected_pins": []
+          },
+          {
+            "position": 1,
+            "connected_pins": [
+              [
+                1,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "connected_pins": [
+              [
+                1,
+                3
+              ],
+              [
+                4,
+                2
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "connected_pins": [
+              [
+                0,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          }
+        ],
+        "name0": "i2c_address",
+        "value0": {
+          "block_type": "math_number",
+          "value": "1"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 6,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pumpA"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "vClean"
+      },
+      "port3": {
+        "block_type": "reference_node",
+        "reference": "wasteClean"
+      },
+      "port4": {
+        "block_type": "reference_node",
+        "reference": "chemoA"
+      },
+      "port5": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "chemoA"
+        }
+      },
+      "port6": {
+        "block_type": "reference_node",
+        "reference": "VC"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "VB",
+      "type": "VALVE",
+      "functions": {
+        "block_type": "EVOPROGVALVE1",
+        "type": "Valve",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "truthTable": [
+          {
+            "position": 0,
+            "connected_pins": []
+          },
+          {
+            "position": 1,
+            "connected_pins": [
+              [
+                1,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "connected_pins": [
+              [
+                1,
+                3
+              ],
+              [
+                4,
+                2
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "connected_pins": [
+              [
+                0,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          }
+        ],
+        "name0": "i2c_address",
+        "value0": {
+          "block_type": "math_number",
+          "value": "3"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 6,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pumpB"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "vClean"
+      },
+      "port3": {
+        "block_type": "reference_node",
+        "reference": "wasteClean"
+      },
+      "port4": {
+        "block_type": "reference_node",
+        "reference": "chemoB"
+      },
+      "port5": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "chemoB"
+        }
+      },
+      "port6": {
+        "block_type": "reference_node",
+        "reference": "VC"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "VC",
+      "type": "VALVE",
+      "functions": {
+        "block_type": "EVOPROGVALVE2",
+        "type": "Valve",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "truthTable": [
+          {
+            "position": 0,
+            "connected_pins": []
+          },
+          {
+            "position": 1,
+            "connected_pins": [
+              [
+                0,
+                5
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                4,
+                3
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "connected_pins": [
+              [
+                1,
+                5
+              ],
+              [
+                0,
+                7
+              ],
+              [
+                4,
+                3
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "connected_pins": [
+              [
+                1,
+                5
+              ],
+              [
+                0,
+                7
+              ],
+              [
+                4,
+                6
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "connected_pins": [
+              [
+                0,
+                7
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                4,
+                3
+              ]
+            ]
+          }
+        ],
+        "name0": "i2c_address",
+        "value0": {
+          "block_type": "math_number",
+          "value": "4"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 8,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VA"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "VB"
+      },
+      "port3": {
+        "block_type": "reference_node",
+        "reference": "wasteB"
+      },
+      "port4": {
+        "block_type": "reference_node",
+        "reference": "wasteC"
+      },
+      "port5": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "cellstat"
+        }
+      },
+      "port6": {
+        "block_type": "reference_node",
+        "reference": "cellstat"
+      },
+      "port7": {
+        "block_type": "reference_node",
+        "reference": "wasteClean"
+      },
+      "port8": {
+        "block_type": "reference_node",
+        "reference": "wasteA"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "vClean",
+      "type": "VALVE",
+      "functions": {
+        "block_type": "EVOPROGVALVE3",
+        "type": "Valve",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "truthTable": [
+          {
+            "position": 0,
+            "connected_pins": []
+          },
+          {
+            "position": 1,
+            "connected_pins": [
+              [
+                0,
+                5,
+                4
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "connected_pins": [
+              [
+                1,
+                5,
+                4
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "connected_pins": [
+              [
+                2,
+                5,
+                4
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "connected_pins": [
+              [
+                3,
+                5,
+                4
+              ]
+            ]
+          }
+        ],
+        "name0": "i2c_address",
+        "value0": {
+          "block_type": "math_number",
+          "value": "9"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 6,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pWater"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "pEtOH"
+      },
+      "port3": {
+        "block_type": "reference_node",
+        "reference": "pNaOH"
+      },
+      "port4": {
+        "block_type": "reference_node",
+        "reference": "pAir"
+      },
+      "port5": {
+        "block_type": "reference_node",
+        "reference": "VB"
+      },
+      "port6": {
+        "block_type": "reference_node",
+        "reference": "VA"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "pumpA",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "0"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "mediaA"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "VA"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "chemoA",
+      "type": "CLOSE_CONTAINER",
+      "functions": {
+        "block_type": "CLOSE_CONTAINER_2",
+        "type": "CloseContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1,
+        "maxVolumeUnits": "L",
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ]
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VA"
+      },
+      "port2": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "VA"
+        }
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "mediaB",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pumpB"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "pumpB",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "2"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "mediaB"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "VB"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "wasteClean",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_3",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 3,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VA"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "VB"
+      },
+      "port3": {
+        "block_type": "reference_node",
+        "reference": "VC"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "chemoB",
+      "type": "CLOSE_CONTAINER",
+      "functions": {
+        "block_type": "CLOSE_CONTAINER_2",
+        "type": "CloseContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1,
+        "maxVolumeUnits": "L",
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ]
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VB"
+      },
+      "port2": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "VB"
+        }
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "cellstat",
+      "type": "CLOSE_CONTAINER",
+      "functions": {
+        "block_type": "CLOSE_CONTAINER_2",
+        "type": "CloseContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1,
+        "maxVolumeUnits": "L",
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ]
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VC"
+      },
+      "port2": {
+        "block_type": "part_copy",
+        "reference": {
+          "block_type": "reference_node",
+          "reference": "VC"
+        }
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "wasteA",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VC"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "wasteB",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VC"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "wasteC",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VC"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "water",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pWater"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "EtOH",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pEtOH"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "NaOH",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pNaOH"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "Air",
+      "type": "OPEN_CONTAINER",
+      "functions": {
+        "block_type": "OPEN_CONTAINER_1",
+        "type": "OpenContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 1000,
+        "maxVolumeUnits": "l"
+      },
+      "extra_functions": null,
+      "number_pins": 1,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "pAir"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "pWater",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "5"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "water"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "vClean"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "pEtOH",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "6"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "EtOH"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "vClean"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "pNaOH",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "7"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "NaOH"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "vClean"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "pAir",
+      "type": "PUMP",
+      "functions": {
+        "block_type": "EVOPROGPUMP",
+        "type": "Pump",
+        "firmwareCompatible": [
+          "EVOPROG"
+        ],
+        "minVolume": 0,
+        "minVolumeUnits": "ml",
+        "reversible": true,
+        "continuos": true,
+        "minRange": 1,
+        "minRangeVolumeUnits": "ml",
+        "minRangeTimeUnits": "hr",
+        "maxRange": 1,
+        "maxRangeVolumeUnits": "l",
+        "maxRangeTimeUnits": "hr",
+        "defaultRate": 500,
+        "defaultRateVolumeUnits": "ml",
+        "defaultRateTimeUnits": "hr",
+        "minRangeStep": 0.5,
+        "minRangeStepVolumeUnits": "ml",
+        "minRangeStepTimeUnits": "hr",
+        "decimalPrecission": 1,
+        "inPorts": [
+          1
+        ],
+        "outPorts": [
+          2
+        ],
+        "name0": "i2caddress",
+        "value0": {
+          "block_type": "math_number",
+          "value": "8"
+        },
+        "paramsNumber": 1
+      },
+      "extra_functions": null,
+      "number_pins": 2,
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "Air"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "vClean"
+      }
+    }
+  ],
+  "decimal_precission": 1,
+  "default_rate": 500,
+  "default_rate_volume_units": "ml",
+  "default_rate_time_units": "h",
+  "integer_precission": 4
+}

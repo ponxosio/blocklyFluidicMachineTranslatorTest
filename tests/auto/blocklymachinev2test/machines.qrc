@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>machines/machineV2simpleTest.json</file>
         <file>machines/machineV2complexValveTest.json</file>
+        <file>machines/evoprogCompleteMachineV2.json</file>
+        <file>machines/twinValveTest2.json</file>
+        <file>machines/TWIN_MACHINE_V5.json</file>
+        <file>machines/directionPortsTest.json</file>
     </qresource>
 </RCC>

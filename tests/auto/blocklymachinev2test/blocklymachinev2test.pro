@@ -30,7 +30,9 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += tst_blocklymachinev2testtest.cpp
+SOURCES += tst_blocklymachinev2testtest.cpp \
+    stringpumpproduct.cpp \
+    stringvalveproduct.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 debug {
@@ -57,6 +59,11 @@ debug {
 
     INCLUDEPATH += X:\bioblocksTranslation\dll_debug\include
     LIBS += -L$$quote(X:\bioblocksTranslation\dll_debug\bin) -lbioblocksTranslation
+
+    INCLUDEPATH += X:\pythonPlugins\dll_debug\include
+    LIBS += -L$$quote(X:\pythonPlugins\dll_debug\bin) -lpythonPlugins
+
+    LIBS += -L$$quote(X:\libraries\boost_1_63_0\stage\lib) -lboost_python-vc140-mt-gd-1_63
 }
 
 !debug {
@@ -84,14 +91,30 @@ debug {
     INCLUDEPATH += X:\bioblocksTranslation\dll_release\include
     LIBS += -L$$quote(X:\bioblocksTranslation\dll_release\bin) -lbioblocksTranslation
 
+    INCLUDEPATH += X:\pythonPlugins\dll_release\include
+    LIBS += -L$$quote(X:\pythonPlugins\dll_release\bin) -lpythonPlugins
+
+    LIBS += -L$$quote(X:\libraries\boost_1_63_0\stage\lib) -lboost_python-vc140-mt-1_63
 }
 
 INCLUDEPATH += X:\libraries\cereal-1.2.2\include
+INCLUDEPATH += X:\libraries\boost_1_63_0
 INCLUDEPATH += X:\libraries\json-2.1.1\src
 
+#python environment
+INCLUDEPATH += C:\Python27\include
+LIBS += -L$$quote(C:\Python27\libs)
+
+#prolog environment
 INCLUDEPATH += X:\swipl\include
 LIBS += -L$$quote(X:\swipl\bin) -llibswipl
 LIBS += -L$$quote(X:\swipl\lib) -llibswipl
 
 RESOURCES += \
     machines.qrc
+
+HEADERS += \
+    debugcommandsender.h \
+    stringpluginfactory.h \
+    stringpumpproduct.h \
+    stringvalveproduct.h
