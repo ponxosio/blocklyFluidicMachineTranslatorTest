@@ -40,6 +40,7 @@ private Q_SLOTS:
     void testCaseEvoprogTwin();
     void testCaseEvoprogTwinTT();
     void testCaseDirectionTest();
+    void testCaseEvoprogTwinNoClean();
 
 };
 
@@ -177,7 +178,7 @@ void Blocklymachinev2testTest::testCaseEvoprogMachine() {
             qDebug() << "c3" << c3;
 
             model->setContinuousFlow({c1, c2, c3}, 300 * units::ml/units::hr);
-            model->processFlows();
+            model->processFlows({});
 
             std::string expected = "pPump 8;P 0 2560.0;pPump 7;pPump 2;pPump 5;pPump 6;M 1 3;M 4 2;";
             std::string generated = com->getStr();
@@ -260,7 +261,7 @@ void Blocklymachinev2testTest::testCaseTwinValve() {
             int c3 = cId["c4"];
 
             model->setContinuousFlow({c1, c2, c3}, 300 * units::ml/units::hr);
-            model->processFlows();
+            model->processFlows({});
 
             std::string expected = "P 0 768.0;pPump 2;M 1 3;M 3 3;";
             std::string generated = com->getStr();
@@ -278,7 +279,7 @@ void Blocklymachinev2testTest::testCaseTwinValve() {
 
             model->setContinuousFlow({c1, c2, c3}, 300 * units::ml/units::hr);
             try {
-                model->processFlows();
+                model->processFlows({});
                 QFAIL("flow c1->c2->c3 is impossible");
             } catch (std::runtime_error & e) {
                 QVERIFY(true);
@@ -335,7 +336,7 @@ void Blocklymachinev2testTest::testCaseEvoprogTwin() {
 
             model->setContinuousFlow({cId["MEDIA_A"], cId["WASTE_A"]}, 300 * units::ml/units::hr);
             model->setContinuousFlow({cId["MEDIA_B"], cId["WASTE_B"]}, 300 * units::ml/units::hr);
-            model->processFlows();
+            model->processFlows({});
 
             std::string expected = "";
             std::string generated = com->getStr();
@@ -432,6 +433,61 @@ void Blocklymachinev2testTest::testCaseDirectionTest() {
         QFAIL("imposible to create temporary file");
     }
     delete tempFile;
+}
+
+void Blocklymachinev2testTest::testCaseEvoprogTwinNoClean() {
+    std::shared_ptr<DebugCommandSender> com = std::make_shared<DebugCommandSender>();
+
+    QTemporaryFile* tempFile = new QTemporaryFile();
+    if (tempFile->open()) {
+        try {
+            copyResourceFile(":/machines/EVOPROG_NO_CLEANING.json", tempFile);
+
+            std::shared_ptr<PythonPluginAbstractFactory> factory = std::make_shared<PythonPluginAbstractFactory>(com);
+            com->connect();
+
+            BlocklyFluidicMachineTranslator translator(tempFile->fileName().toStdString(), factory);
+            BlocklyFluidicMachineTranslator::ModelMappingTuple fluidicModelPair = translator.translateFile();
+            std::shared_ptr<FluidicMachineModel> model = std::get<0>(fluidicModelPair);
+
+            std::string generatedMachine = model->getMachineGraph()->toString();
+            qDebug() << "generated machine:";
+            qDebug() << generatedMachine.c_str();
+
+            PluginFileLoader::setPluginDir("X:/blockly_fluidicMachine_translator/blocklyFluidicMachineTranslatorTest/tests/auto/blocklymachinev2test/plugins");
+            PythonEnvironment::GetInstance()->initEnvironment("X:/pluginScripts/interfacePlugins");
+
+            PrologExecutor::createEngine(std::string(QTest::currentAppName()));
+
+            std::unordered_map<std::string, int> cId(translator.getVariableIdMap());
+            model->processFlows({});
+
+            std::string expected = "";
+            std::string generated = com->getStr();
+
+            qDebug() << "generated: " << generated.c_str();
+            qDebug() << "expected: " << expected.c_str();
+
+            QVERIFY2(expected.compare(generated) == 0, "expected and generated outputs are not the same check debug for more information");
+        } catch (std::exception & e) {
+            delete tempFile;
+
+            PythonEnvironment::GetInstance()->finishEnvironment();
+            PrologExecutor::destoryEngine();
+            com->disconnect();
+
+            QFAIL(e.what());
+        }
+    } else {
+        delete tempFile;
+        QFAIL("imposible to create temporary file");
+    }
+
+    delete tempFile;
+
+    PythonEnvironment::GetInstance()->finishEnvironment();
+    PrologExecutor::destoryEngine();
+    com->disconnect();
 }
 
 void Blocklymachinev2testTest::copyResourceFile(const QString & resourcePath, QTemporaryFile* tempFile) throw(std::invalid_argument) {

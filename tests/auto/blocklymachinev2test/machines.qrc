@@ -6,5 +6,6 @@
         <file>machines/twinValveTest2.json</file>
         <file>machines/TWIN_MACHINE_V5.json</file>
         <file>machines/directionPortsTest.json</file>
+        <file>machines/EVOPROG_NO_CLEANING.json</file>
     </qresource>
 </RCC>
