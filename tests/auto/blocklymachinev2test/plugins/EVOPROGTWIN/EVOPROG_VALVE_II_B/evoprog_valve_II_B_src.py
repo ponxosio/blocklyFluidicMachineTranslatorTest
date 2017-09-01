@@ -1,12 +1,10 @@
-import time
 from routingValve import RoutingValve
 
-class EVOPROGVALVE1_TWIN_B(RoutingValve):
+class EVOPROG_VALVE_II_B(RoutingValve):
 	
 	def __init__(self, params):
 		"""constructor"""
-		self.i2cAddress = params['i2c_address'];
-		self.actualPosition = 0;
+		self.address = params["i2c_address"];
 
 	def moveToPosition(self, communications, position):
 		"""
@@ -18,15 +16,7 @@ class EVOPROGVALVE1_TWIN_B(RoutingValve):
 				*) string readUntil(endCharacter) -- returns a string received from the machine, stops when the endCharacter arrives;
 				*) void synchronize() -- synchronize with the machine;
 		"""
-		if (position != self.actualPosition) :
-			if (position == 0) :
-				self.closeValve(communications);
-			else :
-				positionsMove = abs(self.actualPosition - position);
-			
-				communications.sendString("M " + str(self.i2cAddress) + " " + str(position));
-				time.sleep(.400 * positionsMove);
-				self.actualPosition = position;
+		communications.sendString("MOVE " + str(self.address) + " " + str(position))
 	
 	def closeValve(self, communications):
 		"""
@@ -38,6 +28,4 @@ class EVOPROGVALVE1_TWIN_B(RoutingValve):
 				*) string readUntil(endCharacter) -- returns a string received from the machine, stops when the endCharacter arrives;
 				*) void synchronize() -- synchronize with the machine;
 		"""
-		communications.sendString("H " + str(self.i2cAddress));
-		time.sleep(3);
-		self.actualPosition = 0;
+		communications.sendString("MOVE " + str(self.address) + " " + "HOME")

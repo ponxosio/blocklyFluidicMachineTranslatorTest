@@ -1,11 +1,10 @@
 from peristalticPump import PeristalticPump
 
-class EVOPROGPUMP(PeristalticPump):
+class EVOPROG_PUMP(PeristalticPump):
 	
 	def __init__(self, params):
 		"""constructor"""
-		self.i2cAddress = params['i2caddress'];
-		self.actualDirection = 1;
+		self.address = params["i2caddress"]
 
 	
 	def startPumping(self, communications, direction, rate):
@@ -18,16 +17,7 @@ class EVOPROGPUMP(PeristalticPump):
 				*) string readUntil(endCharacter) -- returns a string received from the machine, stops when the endCharacter arrives;
 				*) void synchronize() -- synchronize with the machine;
 		"""
-		if (rate == 0.0) :
-			self.stopPump(communications);
-		else :
-			frequency = rate * 9.216e+6;
-		
-			if (direction != self.actualDirection) :
-				communications.sendString("invP " + str(self.i2cAddress));
-				self.actualDirection *= -1;
-		
-			communications.sendString("P " + str(self.i2cAddress) + " " + str(frequency));
+		communications.sendString("PUMP " + str(self.address) + " " + str(rate) + " " + str(direction));
 	
 	def stopPump(self, communications):
 		"""
@@ -39,4 +29,4 @@ class EVOPROGPUMP(PeristalticPump):
 				*) string readUntil(endCharacter) -- returns a string received from the machine, stops when the endCharacter arrives;
 				*) void synchronize() -- synchronize with the machine;
 		"""
-		communications.sendString("pPump " + str(self.i2cAddress));
+		communications.sendString("SPUMP " + str(self.address));

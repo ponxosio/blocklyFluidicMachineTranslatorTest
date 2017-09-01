@@ -175,7 +175,10 @@
         "block_type": "reference_node",
         "reference": "VA_A"
       },
-      "port2": null
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "VA_B"
+      }
     },
     {
       "block_type": "configure_node",
@@ -553,11 +556,11 @@
       },
       "twin1": {
         "block_type": "reference_node",
-        "reference": "VC_B"
+        "reference": "VC_A"
       },
       "twin2": {
         "block_type": "reference_node",
-        "reference": "VC_C"
+        "reference": "VC_B"
       }
     },
     {
@@ -648,48 +651,6 @@
     },
     {
       "block_type": "configure_node",
-      "reference": "cellstat",
-      "type": "CLOSE_CONTAINER",
-      "functions": {
-        "block_type": "EVOPROG_CLOSECONTAINER_3",
-        "type": "CloseContainer",
-        "minVolume": 5,
-        "minVolumeUnits": "ml",
-        "maxVolume": 300,
-        "maxVolumeUnits": "ml",
-        "inPorts": [
-          1,
-          2
-        ],
-        "outPorts": [
-          3
-        ]
-      },
-      "extra_functions": null,
-      "number_pins": 3,
-      "number_twins": 0,
-      "in_ports": [
-        1,
-        2
-      ],
-      "out_ports": [
-        3
-      ],
-      "port1": {
-        "block_type": "reference_node",
-        "reference": "VC_A"
-      },
-      "port2": {
-        "block_type": "reference_node",
-        "reference": "VC_B"
-      },
-      "port3": {
-        "block_type": "reference_node",
-        "reference": "VC_C"
-      }
-    },
-    {
-      "block_type": "configure_node",
       "reference": "waste_A",
       "type": "OPEN_CONTAINER",
       "functions": {
@@ -738,6 +699,48 @@
       "port1": {
         "block_type": "reference_node",
         "reference": "VC_B"
+      }
+    },
+    {
+      "block_type": "configure_node",
+      "reference": "cellstat",
+      "type": "CLOSE_CONTAINER",
+      "functions": {
+        "block_type": "EVOPROG_CLOSECONTAINER_3",
+        "type": "CloseContainer",
+        "minVolume": 5,
+        "minVolumeUnits": "ml",
+        "maxVolume": 300,
+        "maxVolumeUnits": "ml",
+        "inPorts": [
+          1,
+          2
+        ],
+        "outPorts": [
+          3
+        ]
+      },
+      "extra_functions": null,
+      "number_pins": 3,
+      "number_twins": 0,
+      "in_ports": [
+        1,
+        2
+      ],
+      "out_ports": [
+        3
+      ],
+      "port1": {
+        "block_type": "reference_node",
+        "reference": "VC_A"
+      },
+      "port2": {
+        "block_type": "reference_node",
+        "reference": "VC_B"
+      },
+      "port3": {
+        "block_type": "reference_node",
+        "reference": "VC_C"
       }
     },
     {

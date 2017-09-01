@@ -31,6 +31,7 @@ public:
 private:
     void copyResourceFile(const QString & resourcePath, QTemporaryFile* file) throw(std::invalid_argument);
     std::string ttToString(const ValveNode::TruthTable & table);
+    bool checkSolutions(const std::string & generated, const std::string & expected);
 
 private Q_SLOTS:
     void testCaseSImpleMachine();
@@ -40,6 +41,7 @@ private Q_SLOTS:
     void testCaseEvoprogTwin();
     void testCaseEvoprogTwinTT();
     void testCaseDirectionTest();
+    void testCaseEvoprogTwinNoCleanStructure();
     void testCaseEvoprogTwinNoClean();
 
 };
@@ -435,6 +437,267 @@ void Blocklymachinev2testTest::testCaseDirectionTest() {
     delete tempFile;
 }
 
+void Blocklymachinev2testTest::testCaseEvoprogTwinNoCleanStructure() {
+    QTemporaryFile* tempFile = new QTemporaryFile();
+    if (tempFile->open()) {
+        try {
+            copyResourceFile(":/machines/EVOPROG_NO_CLEANING.json", tempFile);
+
+            std::shared_ptr<PythonPluginAbstractFactory> factory = NULL;
+
+            BlocklyFluidicMachineTranslator translator(tempFile->fileName().toStdString(), factory);
+            BlocklyFluidicMachineTranslator::ModelMappingTuple fluidicModelPair = translator.translateFile();
+            std::shared_ptr<FluidicMachineModel> model = std::get<0>(fluidicModelPair);
+
+            std::unordered_map<std::string, int> cId(translator.getVariableIdMap());
+
+            const std::shared_ptr<const MachineGraph> machine = model->getMachineGraph();
+            std::string generatedMachine = machine->toString();
+            qDebug() << "generated machine:";
+            qDebug() << generatedMachine.c_str();
+
+            int port1 = 0;
+            int port2 = 0;
+            auto edge1 = machine->getTubeConnectedToPin(cId["media_A"],port1);
+            auto edge2 = machine->getTubeConnectedToPin(cId["PA"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["PA"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["VA_A"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VA_A"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["chemo_A"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["chemo_A"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["VA_B"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VA_B"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["VC_A"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VC_A"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["waste_A"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 2;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VC_A"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["cellstat"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 2;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["cellstat"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["VC_C"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VC_C"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["waste_C"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 0;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["media_B"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["PB"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["PB"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["VB_A"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VB_A"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["chemo_B"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["chemo_B"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["VB_B"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VB_B"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["VC_B"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 1;
+            port2 = 0;
+            edge1 = machine->getTubeConnectedToPin(cId["VC_B"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["waste_B"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            port1 = 2;
+            port2 = 1;
+            edge1 = machine->getTubeConnectedToPin(cId["VC_B"],port1);
+            edge2 = machine->getTubeConnectedToPin(cId["cellstat"],port2);
+            QVERIFY2(edge1->equals(*edge2.get()), std::string(edge1->toText() + ":" + std::to_string(port1) + " and " +
+                                                              edge2->toText() + ":" + std::to_string(port2) + " are not the same").c_str());
+
+            const std::vector<std::unordered_set<int>> & twins = machine->getTwinsValves();
+
+            bool finded = false;
+            for(const std::unordered_set<int> & actualSet : twins) {
+
+                if (actualSet.find(cId["VA_A"]) != actualSet.end() &&
+                    actualSet.find(cId["VA_B"]) != actualSet.end())
+                {
+                    finded = true;
+                    break;
+                }
+            }
+            QVERIFY2(finded, "VA_A and VA_B are not twins");
+
+            finded = false;
+            for(const std::unordered_set<int> & set : twins) {
+
+                if (set.find(cId["VB_A"]) != set.end() &&
+                    set.find(cId["VB_B"]) != set.end())
+                {
+                    finded = true;
+                    break;
+                }
+            }
+            QVERIFY2(finded, "VB_A and VB_B are not twins");
+
+            finded = false;
+            for(const std::unordered_set<int> & set : twins) {
+
+                if (set.find(cId["VC_A"]) != set.end() &&
+                    set.find(cId["VC_B"]) != set.end() &&
+                    set.find(cId["VC_C"]) != set.end())
+                {
+                    finded = true;
+                    break;
+                }
+            }
+            QVERIFY2(finded, "VC_A, VC_B and VC_C are not twins");
+
+            auto table = machine->getValve(cId["VA_A"])->getTruthTable();
+            auto pos = table[0];
+            QVERIFY2(pos.empty(), "pos 0 of VA_A is not correct");
+
+            table = machine->getValve(cId["VA_A"])->getTruthTable();
+            pos = table[3];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 3 of VA_A is not correct");
+
+            table = machine->getValve(cId["VA_B"])->getTruthTable();
+            pos = table[0];
+            QVERIFY2(pos.empty(), "pos 0 of VA_B is not correct");
+
+            table = machine->getValve(cId["VA_B"])->getTruthTable();
+            pos = table[3];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 3 of VA_B is not correct");
+
+            table = machine->getValve(cId["VB_A"])->getTruthTable();
+            pos = table[0];
+            QVERIFY2(pos.empty(), "pos 0 of VB_A is not correct");
+
+            table = machine->getValve(cId["VB_A"])->getTruthTable();
+            pos = table[3];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 3 of VB_A is not correct");
+
+            table = machine->getValve(cId["VB_B"])->getTruthTable();
+            pos = table[0];
+            QVERIFY2(pos.empty(), "pos 0 of VB_B is not correct");
+
+            table = machine->getValve(cId["VB_B"])->getTruthTable();
+            pos = table[3];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 3 of VB_B is not correct");
+
+            table = machine->getValve(cId["VC_A"])->getTruthTable();
+            pos = table[0];
+            QVERIFY2(pos.empty(), "pos 0 of VC_A is not correct");
+
+            table = machine->getValve(cId["VC_A"])->getTruthTable();
+            pos = table[1];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(2) != pos[0].end(), "pos 1 of VC_A is not correct");
+
+            table = machine->getValve(cId["VC_A"])->getTruthTable();
+            pos = table[2];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 2 of VC_A is not correct");
+
+            table = machine->getValve(cId["VC_A"])->getTruthTable();
+            pos = table[4];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 4 of VC_A is not correct");
+
+            table = machine->getValve(cId["VC_B"])->getTruthTable();
+            pos = table[0];
+            QVERIFY2(pos.empty(), "pos 0 of VC_B is not correct");
+
+            table = machine->getValve(cId["VC_B"])->getTruthTable();
+            pos = table[1];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 1 of VC_B is not correct");
+
+            table = machine->getValve(cId["VC_B"])->getTruthTable();
+            pos = table[2];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(2) != pos[0].end(), "pos 2 of VC_B is not correct");
+
+            table = machine->getValve(cId["VC_B"])->getTruthTable();
+            pos = table[4];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 4 of VC_B is not correct");
+
+            table = machine->getValve(cId["VC_C"])->getTruthTable();
+            pos = table[0];
+            QVERIFY2(pos.empty(), "pos 0 of VC_C is not correct");
+
+            table = machine->getValve(cId["VC_C"])->getTruthTable();
+            pos = table[1];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 1 of VC_C is not correct");
+
+            table = machine->getValve(cId["VC_C"])->getTruthTable();
+            pos = table[2];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 2 of VC_C is not correct");
+
+            table = machine->getValve(cId["VC_C"])->getTruthTable();
+            pos = table[4];
+            QVERIFY2(pos[0].find(0) != pos[0].end() && pos[0].find(1) != pos[0].end(), "pos 4 of VC_C is not correct");
+
+        } catch (std::exception & e) {
+            delete tempFile;
+            QFAIL(e.what());
+        }
+    } else {
+        delete tempFile;
+        QFAIL("imposible to create temporary file");
+    }
+    delete tempFile;
+}
+
 void Blocklymachinev2testTest::testCaseEvoprogTwinNoClean() {
     std::shared_ptr<DebugCommandSender> com = std::make_shared<DebugCommandSender>();
 
@@ -460,15 +723,122 @@ void Blocklymachinev2testTest::testCaseEvoprogTwinNoClean() {
             PrologExecutor::createEngine(std::string(QTest::currentAppName()));
 
             std::unordered_map<std::string, int> cId(translator.getVariableIdMap());
+
+            qDebug() << "empty";
+
             model->processFlows({});
 
-            std::string expected = "";
+            std::string expected = "PUMP 17 0.0 0;PUMP 16 0.0 0;MOVE 62 0;MOVE 31 0;MOVE 31 0;MOVE 32 0;MOVE 32 0;MOVE 62 0;MOVE 62 0;";
             std::string generated = com->getStr();
 
             qDebug() << "generated: " << generated.c_str();
             qDebug() << "expected: " << expected.c_str();
 
-            QVERIFY2(expected.compare(generated) == 0, "expected and generated outputs are not the same check debug for more information");
+            QVERIFY2(checkSolutions(generated, expected), "expected and generated outputs are not the same check debug for more information");
+            com->clear();
+
+            qDebug() << "media_A->chemo_A->cellstat->waste_C";
+
+            model->setContinuousFlow({cId["media_A"], cId["chemo_A"], cId["cellstat"], cId["waste_C"]}, 300 * units::ml/units::hr);
+            model->processFlows({});
+
+            expected = "PUMP 17 8.33333333333e-05 1;PUMP 16 0.0 0;MOVE 62 1;MOVE 31 3;MOVE 31 3;MOVE 32 0;MOVE 32 0;MOVE 62 1;MOVE 62 1;";
+            generated = com->getStr();
+
+            qDebug() << "generated: " << generated.c_str();
+            qDebug() << "expected: " << expected.c_str();
+
+            QVERIFY2(checkSolutions(generated, expected), "expected and generated outputs are not the same check debug for more information");
+            com->clear();
+
+            qDebug() << "media_B->chemo_B->cellstat->waste_C";
+
+            model->stopContinuousFlow({cId["media_A"], cId["chemo_A"], cId["cellstat"], cId["waste_C"]});
+            model->setContinuousFlow({cId["media_B"], cId["chemo_B"], cId["cellstat"], cId["waste_C"]}, 300 * units::ml/units::hr);
+            model->processFlows({});
+
+            expected = "PUMP 17 0.0 0;PUMP 16 8.33333333333e-05 1;MOVE 62 2;MOVE 31 0;MOVE 31 0;MOVE 32 3;MOVE 32 3;MOVE 62 2;MOVE 62 2;";
+            generated = com->getStr();
+
+            qDebug() << "generated: " << generated.c_str();
+            qDebug() << "expected: " << expected.c_str();
+
+            QVERIFY2(checkSolutions(generated, expected), "expected and generated outputs are not the same check debug for more information");
+
+            com->clear();
+
+            qDebug() << "media_A->chemo_A->waste_A";
+            qDebug() << "media_B->chemo_B->cellstat->waste_C";
+
+            model->setContinuousFlow({cId["media_A"], cId["chemo_A"], cId["waste_A"]}, 300 * units::ml/units::hr);
+            model->processFlows({});
+
+            expected = "PUMP 17 8.33333333333e-05 1;PUMP 16 8.33333333333e-05 1;MOVE 62 2;MOVE 31 3;MOVE 31 3;MOVE 32 3;MOVE 32 3;MOVE 62 2;MOVE 62 2;";
+            generated = com->getStr();
+
+            qDebug() << "generated: " << generated.c_str();
+            qDebug() << "expected: " << expected.c_str();
+
+            QVERIFY2(checkSolutions(generated, expected), "expected and generated outputs are not the same check debug for more information");
+
+            com->clear();
+
+            qDebug() << "media_A->chemo_A->cellstat->waste_C";
+            qDebug() << "media_B->chemo_B->waste_B";
+
+            model->stopContinuousFlow({cId["media_B"], cId["chemo_B"], cId["cellstat"], cId["waste_C"]});
+            model->stopContinuousFlow({cId["media_A"], cId["chemo_A"], cId["waste_A"]});
+
+            model->setContinuousFlow({cId["media_A"], cId["chemo_A"], cId["cellstat"], cId["waste_C"]}, 300 * units::ml/units::hr);
+            model->setContinuousFlow({cId["media_B"], cId["chemo_B"], cId["waste_B"]}, 300 * units::ml/units::hr);
+
+            model->processFlows({});
+
+            expected = "PUMP 17 8.33333333333e-05 1;PUMP 16 8.33333333333e-05 1;MOVE 62 1;MOVE 31 3;MOVE 31 3;MOVE 32 3;MOVE 32 3;MOVE 62 1;MOVE 62 1;";
+            generated = com->getStr();
+
+            qDebug() << "generated: " << generated.c_str();
+            qDebug() << "expected: " << expected.c_str();
+
+            QVERIFY2(checkSolutions(generated, expected), "expected and generated outputs are not the same check debug for more information");
+
+            com->clear();
+
+            qDebug() << "media_A->chemo_A->waste_A";
+            qDebug() << "media_B->chemo_B->waste_B";
+
+            model->stopContinuousFlow({cId["media_A"], cId["chemo_A"], cId["cellstat"], cId["waste_C"]});
+
+            model->setContinuousFlow({cId["media_A"], cId["chemo_A"], cId["waste_A"]}, 300 * units::ml/units::hr);
+
+            model->processFlows({});
+
+            expected = "PUMP 17 8.33333333333e-05 1;PUMP 16 8.33333333333e-05 1;MOVE 62 4;MOVE 31 3;MOVE 31 3;MOVE 32 3;MOVE 32 3;MOVE 62 4;MOVE 62 4;";
+            generated = com->getStr();
+
+            qDebug() << "generated: " << generated.c_str();
+            qDebug() << "expected: " << expected.c_str();
+
+            QVERIFY2(checkSolutions(generated, expected), "expected and generated outputs are not the same check debug for more information");
+
+            com->clear();
+
+            qDebug() << "impossible";
+            qDebug() << "media_A->chemo_A->cellstat->waste_C";
+            qDebug() << "media_B->chemo_B->cellstat->waste_C";
+
+            model->stopContinuousFlow({cId["media_A"], cId["chemo_A"], cId["waste_A"]});
+            model->stopContinuousFlow({cId["media_B"], cId["chemo_B"], cId["waste_B"]});
+
+            model->setContinuousFlow({cId["media_A"], cId["chemo_A"], cId["cellstat"], cId["waste_C"]}, 300 * units::ml/units::hr);
+            model->setContinuousFlow({cId["media_B"], cId["chemo_B"], cId["cellstat"], cId["waste_C"]}, 300 * units::ml/units::hr);
+
+            try {
+                model->processFlows({});
+                QFAIL("impossible flow has been made");
+            } catch(std::exception & e) {
+                qDebug() << e.what();
+            }
         } catch (std::exception & e) {
             delete tempFile;
 
@@ -525,6 +895,18 @@ std::string Blocklymachinev2testTest::ttToString(const ValveNode::TruthTable & t
     stream << "]";
 
     return stream.str();
+}
+
+bool Blocklymachinev2testTest::checkSolutions(const std::string & generated, const std::string & expected) {
+    std::vector<std::string> generatedTokens;
+    Utils::tokenize(generated, generatedTokens, ";");
+
+    std::vector<std::string> expectedTokens;
+    Utils::tokenize(expected, expectedTokens, ";");
+
+    std::unordered_set<std::string> generatedSet(generatedTokens.begin(), generatedTokens.end());
+    std::unordered_set<std::string> expectedSet(expectedTokens.begin(), expectedTokens.end());
+    return (generatedSet == expectedSet);
 }
 
 QTEST_APPLESS_MAIN(Blocklymachinev2testTest)

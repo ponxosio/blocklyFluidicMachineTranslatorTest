@@ -15,11 +15,15 @@ public:
     inline virtual std::string receiveString() throw (std::ios_base::failure){return "";}
     inline virtual std::string readUntil(char endCharacter) throw (std::ios_base::failure){return "";}
     inline virtual void disconnect() {}
-    inline virtual void connect() throw (std::ios_base::failure){}
+    inline virtual void connect() throw (std::ios_base::failure){stream.clear();stream.str("");}
     inline virtual void synchronize() throw (std::ios_base::failure){}
 
     inline std::string getStr() {
         return stream.str();
+    }
+
+    inline void clear() {
+        stream.clear();stream.str("");
     }
 
 protected:
